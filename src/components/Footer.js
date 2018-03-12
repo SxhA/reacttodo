@@ -1,28 +1,62 @@
+let propTypes = {
+    leftConut: PT.number,
+    showClearButton: PT.bool,
+    onClearCompleted: PT.func,
+    changeView: PT.func,
+    view: PT.oneOf(['all', 'active', 'completed'])
+}
+
 export default class Footer extends React.Component{
     constructor(props){
         super(props);
     }
 
     render(){
+        let {leftConut, onClearCompleted, showClearButton, changeView, view} = this.props;
+
+        let clearBtn = null;
+        if(showClearButton){
+            clearBtn = (
+                <button 
+                    className="clear-completed"
+                    onClick={onClearCompleted}
+                >clear all completed</button>
+            );
+        }
+
         return(
             <footer className="footer">
                 <span className="todo-count">
-                    <strong>{0}</strong>
+                    <strong>{leftConut}</strong>
                     <span>item left</span>
                 </span>
                 <ul className="filters">
                     <li>
-                        <a href="#/all">All</a>
+                        <a 
+                            href="#/all"
+                            className={view === 'all' ? 'selected' : ''}
+                            onClick={ev => changeView('all')}
+                        >All</a>
                     </li>
                     <li>
-                        <a href="#/active">Active</a>
+                        <a 
+                            href="#/active"
+                            className={view === 'active' ? 'selected' : ''}
+                            onClick={ev => changeView('active')}
+                        >Active</a>
                     </li>
                     <li>
-                        <a href="#/completed">Completed</a>
+                        <a 
+                            href="#/completed"
+                            className={view === 'completed' ? 'selected' : ''}
+                            onClick={ev => changeView('completed')}
+                        >Completed</a>
                     </li>
                 </ul>
-                <button className="clear-completed">clear all completed</button>
+                {clearBtn}
             </footer>
         );
     }
 }
+
+Footer.propTypes = propTypes;
