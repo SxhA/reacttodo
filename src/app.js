@@ -121,16 +121,18 @@ export default class App extends React.Component{
         let {handleKeyDownPost, onDestroy, onClearCompleted, inputChang, toggleAll, onToggle, changeView, itemEditDown} = this;
 
         let {todosData, inputVal, view} = this.state;
+        let {location:{pathname}} = this.props;
+
         let items = null,
             footer = null,
             itemsBox = null;
         let leftConut = todosData.length;
         items = todosData.filter(elt => {
             if(elt.hasCompleted) leftConut--;
-            switch (view){
-                case 'active':
+            switch (pathname){
+                case '/active':
                     return !elt.hasCompleted;
-                case 'completed':
+                case '/completed':
                     return elt.hasCompleted;  
                 default:
                     return true;
@@ -171,8 +173,7 @@ export default class App extends React.Component{
                         leftConut,
                         onClearCompleted,
                         showClearButton: leftConut < todosData.length,
-                        changeView,
-                        view
+                        pathname
                     }}
                 />
             );
@@ -187,7 +188,8 @@ export default class App extends React.Component{
                         className="new-todo"
                         value={inputVal}
                         onChange={inputChang}
-                        onKeyDown={handleKeyDownPost}    
+                        onKeyDown={handleKeyDownPost}
+                        placeholder="type something here"
                     />
                 </header>
                 {itemsBox}
@@ -200,7 +202,7 @@ export default class App extends React.Component{
 
 ReactDOM.render(
     <Router>
-        <Route path="/app" component={App} />
+        <Route path="/" component={App} />
     </Router>,
     document.getElementById('root')
 )

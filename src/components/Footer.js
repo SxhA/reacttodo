@@ -1,9 +1,10 @@
+import {Link} from 'react-router-dom';
+
 let propTypes = {
     leftConut: PT.number,
     showClearButton: PT.bool,
     onClearCompleted: PT.func,
-    changeView: PT.func,
-    view: PT.oneOf(['all', 'active', 'completed'])
+    pathname: PT.string
 }
 
 export default class Footer extends React.Component{
@@ -12,7 +13,7 @@ export default class Footer extends React.Component{
     }
 
     render(){
-        let {leftConut, onClearCompleted, showClearButton, changeView, view} = this.props;
+        let {leftConut, onClearCompleted, showClearButton, pathname} = this.props;
 
         let clearBtn = null;
         if(showClearButton){
@@ -32,25 +33,22 @@ export default class Footer extends React.Component{
                 </span>
                 <ul className="filters">
                     <li>
-                        <a 
-                            href="#/all"
-                            className={view === 'all' ? 'selected' : ''}
-                            onClick={ev => changeView('all')}
-                        >All</a>
+                        <Link
+                            to="/"
+                            className={pathname === '/' ? 'selected' : ''}
+                        >All</Link>
                     </li>
                     <li>
-                        <a 
-                            href="#/active"
-                            className={view === 'active' ? 'selected' : ''}
-                            onClick={ev => changeView('active')}
-                        >Active</a>
+                        <Link
+                            to="/active"
+                            className={pathname === '/active' ? 'selected' : ''}
+                        >Active</Link>
                     </li>
                     <li>
-                        <a 
-                            href="#/completed"
-                            className={view === 'completed' ? 'selected' : ''}
-                            onClick={ev => changeView('completed')}
-                        >Completed</a>
+                        <Link
+                            to="/completed"
+                            className={pathname === '/completed' ? 'selected' : ''}
+                        >Completed</Link>
                     </li>
                 </ul>
                 {clearBtn}
