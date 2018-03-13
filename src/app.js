@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Item from 'components/Item';
 import Footer from 'components/Footer';
 
@@ -198,6 +199,8 @@ export default class App extends React.Component{
 
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('root')
+    <Router>
+        <Route path="/app" component={App} />
+    </Router>,
+    document.getElementById('root')
 )
